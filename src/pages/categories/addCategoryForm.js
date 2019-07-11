@@ -8,29 +8,29 @@ class AddCategoryForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      category: ""
+      name: ""
     };
   }
   render() {
-    const { category } = this.state;
+    const { name } = this.state;
     return (
       <form autoComplete="off" onSubmit={this.handleSubmit}>
-        <input name="category" onChange={this.handleChange} value={category} />
+        <input name="name" onChange={this.handleChange} value={name} />
         <button>Add</button>
       </form>
     );
   }
 
   handleChange(e) {
-    this.setState({ category: e.target.value });
+    this.setState({ name: e.target.value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { category } = this.state;
-    if (category !== "") {
-      this.props.addCategory({ name: category, id: uuid.v4() });
-      this.setState({ category: "" });
+    const { name } = this.state;
+    if (name !== "") {
+      this.props.addCategory({ name, id: uuid.v4() });
+      this.setState({ name: "" });
     }
   }
 }

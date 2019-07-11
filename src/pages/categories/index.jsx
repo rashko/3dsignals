@@ -12,7 +12,7 @@ class Categories extends React.Component {
         <ul>
           <List items={categories} match={match} />
         </ul>
-        <Link to={`${match.path}create/`}>create</Link>
+        <Link to={`${match.path}create/`}>Add</Link>
         <Route path={`${match.path}create`} component={AddCategoryForm} />
         <Route path={`${match.path}edit/:id`} render={(props) => <EditCategoryForm key={props.match.params.id} {...props} />}/>
       </div>

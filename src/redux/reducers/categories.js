@@ -45,6 +45,7 @@ export default function(state = initialState, action) {
       if (index > -1) {
         return update(state, { list: { [index]: { name: { $set: name } } } });
       }
+      break;
     }
     default:
       return state;

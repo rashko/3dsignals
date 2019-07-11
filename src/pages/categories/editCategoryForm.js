@@ -1,5 +1,4 @@
 import * as React from "react";
-import uuid from "uuid";
 import { connect } from "react-redux";
 import { editCategory } from "../../redux/actions/categories";
 class EditCategoryForm extends React.Component {
@@ -12,11 +11,13 @@ class EditCategoryForm extends React.Component {
       id: ""
     };
   }
-  componentDidMount(){
-      const {id} = this.props.match.params;
-      const categories = this.props.categories;
-      const category = categories.list.find(category => category.id === id);
-      this.setState({name: category.name, id: category.id});
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    const categories = this.props.categories;
+    const category = categories.list.find(category => category.id === id);
+    if (category) {
+      this.setState(category);
+    }
   }
   render() {
     const { name } = this.state;
@@ -35,9 +36,9 @@ class EditCategoryForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { name, id } = this.state;
-    const {history} = this.props;
+    const { history } = this.props;
     this.props.editCategory({ name, id });
-    history.push('/categories/')
+    history.push("/categories/");
   }
 }
 
