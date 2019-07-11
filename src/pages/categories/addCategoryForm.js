@@ -1,4 +1,5 @@
 import * as React from "react";
+import uuid from "uuid";
 import { connect } from "react-redux";
 import { addCategory } from "../../redux/actions/categories";
 class AddCategoryForm extends React.Component {
@@ -11,9 +12,9 @@ class AddCategoryForm extends React.Component {
     };
   }
   render() {
-    const {category} = this.state;
+    const { category } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form autoComplete="off" onSubmit={this.handleSubmit}>
         <input name="category" onChange={this.handleChange} value={category} />
         <button>Add</button>
       </form>
@@ -27,8 +28,10 @@ class AddCategoryForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { category } = this.state;
-    this.props.addCategory({ name: category });
-    this.setState({ category: "" });
+    if (category !== "") {
+      this.props.addCategory({ name: category, id: uuid.v4() });
+      this.setState({ category: "" });
+    }
   }
 }
 
