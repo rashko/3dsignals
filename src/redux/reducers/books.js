@@ -1,11 +1,6 @@
 import update from "immutability-helper";
 
-import {
-  GET_BOOKS,
-  ADD_BOOK,
-  REMOVE_BOOK,
-  EDIT_BOOK
-} from "../actionTypes";
+import { GET_BOOKS, ADD_BOOK, REMOVE_BOOK, EDIT_BOOK } from "../actionTypes";
 
 const initialState = {
   list: []
@@ -26,10 +21,10 @@ export default function(state = initialState, action) {
       return newState;
     }
     case EDIT_BOOK: {
-      const { id, name } = action.payload;
+      const { id } = action.payload;
       const index = state.list.findIndex(item => item.id === id);
       if (index > -1) {
-        return update(state, { list: { [index]: { name: { $set: name } } } });
+        return update(state, { list: { [index]: { $merge: action.payload } } });
       }
       break;
     }

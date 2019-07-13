@@ -6,9 +6,11 @@ class EditCategoryForm extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
     this.state = {
       name: "",
-      id: ""
+      id: "",
+      errors: {}
     };
   }
   componentDidMount() {
@@ -17,7 +19,11 @@ class EditCategoryForm extends React.Component {
   render() {
     const { name } = this.state;
     const originalName = this.props.category.name;
-    const save = <button onClick={this.handleSubmit}  className={"btn"}>Update</button>;
+    const save = (
+      <button onClick={this.handleSubmit} className={"btn"}>
+        Update
+      </button>
+    );
     return (
       <div className={"form"}>
         <div className={"title"}>
@@ -27,7 +33,10 @@ class EditCategoryForm extends React.Component {
         <form autoComplete="off" onSubmit={this.handleSubmit}>
           <div className={"row"}>
             <label>name:</label>
-            <input name="name" onChange={this.handleChange} value={name} />
+            <div className={"field"}>
+              <input name="name" onChange={this.handleChange} value={name} />
+              <span className={'validationError'}>{this.state.errors["name"]}</span>
+            </div>
           </div>
         </form>
       </div>
@@ -42,8 +51,24 @@ class EditCategoryForm extends React.Component {
     e.preventDefault();
     const { name, id } = this.state;
     const { history } = this.props;
-    this.props.editCategory({ name, id });
-    history.push("/categories/");
+    if (this.handleValidation()) {
+      this.props.editCategory({ name, id });
+      history.push("/categories/");
+    }
+  }
+
+  handleValidation() {
+    const { name } = this.state;
+    const errors = {};
+    let isValid = true;
+
+    if (name === "") {
+      isValid = false;
+      errors["name"] = "name can't be empty";
+    }
+
+    this.setState({ errors: errors });
+    return isValid;
   }
 }
 

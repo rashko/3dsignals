@@ -12,12 +12,7 @@ class Books extends React.Component {
       <div className={"page"}>
         <List items={books} match={match} />
         <Route path={`${match.path}create`} component={AddBookForm} />
-        <Route
-          path={`${match.path}edit/:id`}
-          render={props => (
-            <EditBookForm key={props.match.params.id} {...props} />
-          )}
-        />
+        <Route path={`${match.path}edit/:id`} component={EditBookForm} />
         <Route path={`${match.path}details/:id`} component={BookDetails} />
       </div>
     );

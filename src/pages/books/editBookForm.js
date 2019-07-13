@@ -6,12 +6,14 @@ class EditBookForm extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
     this.state = {
       name: "",
       author: "",
       category: "",
       price: "",
-      id: ""
+      id: "",
+      errors: {}
     };
   }
   componentDidMount() {
@@ -36,10 +38,16 @@ class EditBookForm extends React.Component {
           <div className={"row"}>
             <label>name:</label>
             <input name="name" onChange={this.handleChange} value={name} />
+            <span className={"validationError"}>
+              {this.state.errors["name"]}
+            </span>
           </div>
           <div className={"row"}>
             <label>author:</label>
             <input name="author" onChange={this.handleChange} value={author} />
+            <span className={"validationError"}>
+              {this.state.errors["author"]}
+            </span>
           </div>
           <div className={"row"}>
             <label>category:</label>
@@ -55,10 +63,16 @@ class EditBookForm extends React.Component {
                 </option>
               ))}
             </select>
+            <span className={"validationError"}>
+              {this.state.errors["category"]}
+            </span>
           </div>
           <div className={"row"}>
             <label>price:</label>
             <input name="price" onChange={this.handleChange} value={price} />
+            <span className={"validationError"}>
+              {this.state.errors["price"]}
+            </span>
           </div>
         </form>
       </div>
@@ -72,10 +86,47 @@ class EditBookForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { name, id } = this.state;
     const { history } = this.props;
-    this.props.editBook({ name, id });
-    history.push("/books/");
+    const { id, name, author, category, price } = this.state;
+    if (this.handleValidation()) {
+      this.props.editBook({ id, name, author, category, price });
+      history.push("/books/");
+    }
+  }
+
+  handleValidation() {
+    const { name, author, category, price } = this.state;
+    const { categories } = this.props;
+    const errors = {};
+    let isValid = true;
+
+    if (name === "") {
+      isValid = false;
+      errors["name"] = "name can't be empty";
+    }
+    if (author === "") {
+      isValid = false;
+      errors["author"] = "author can't be empty";
+    }
+    if (category === "" || !categories.list.find(c => c.id === category)) {
+      isValid = false;
+      errors["category"] = "category can't be empty";
+    }
+    if (price === "") {
+      isValid = false;
+      errors["price"] = "price can't be empty";
+    }
+    if (isNaN(price)) {
+      isValid = false;
+      errors["price"] = "price must be number";
+    }
+    if (price < 0) {
+      isValid = false;
+      errors["price"] = "price must be positive number";
+    }
+
+    this.setState({ errors: errors });
+    return isValid;
   }
 }
 

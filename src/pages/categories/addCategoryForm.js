@@ -8,7 +8,8 @@ class AddCategoryForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      name: ""
+      name: "",
+      errors: {}
     };
   }
   render() {
@@ -28,6 +29,9 @@ class AddCategoryForm extends React.Component {
           <div className={"row"}>
             <label>name:</label>
             <input name="name" onChange={this.handleChange} value={name} />
+            <span className={"validationError"}>
+              {this.state.errors["name"]}
+            </span>
           </div>
         </form>
       </div>
@@ -41,10 +45,24 @@ class AddCategoryForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { name } = this.state;
-    if (name !== "") {
+    if (this.handleValidation()) {
       this.props.addCategory({ name, id: uuid.v4() });
       this.setState({ name: "" });
     }
+  }
+
+  handleValidation() {
+    const { name } = this.state;
+    const errors = {};
+    let isValid = true;
+
+    if (name === "") {
+      isValid = false;
+      errors["name"] = "name can't be empty";
+    }
+
+    this.setState({ errors: errors });
+    return isValid;
   }
 }
 

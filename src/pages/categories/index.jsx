@@ -12,12 +12,7 @@ class Categories extends React.Component {
       <div className={"page"}>
         <List items={categories} match={match} />
         <Route path={`${match.path}create`} component={AddCategoryForm} />
-        <Route
-          path={`${match.path}edit/:id`}
-          render={props => (
-            <EditCategoryForm key={props.match.params.id} {...props} />
-          )}
-        />
+        <Route path={`${match.path}edit/:id`} component={EditCategoryForm} />
         <Route path={`${match.path}details/:id`} component={CategoryDetails} />
       </div>
     );

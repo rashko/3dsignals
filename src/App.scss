@@ -108,11 +108,18 @@ $grayDark: #cccccc;
       }
       .row {
         padding: 5px;
+        display: flex;
         label {
           display: inline-block;
           width: 100px;
           padding: 0 5px;
           text-align: right;
+        }
+        .validationError {
+          color: $danger;
+          display: inline-block;
+          padding: 5px;
+          font-size: 0.8em;
         }
       }
     }
