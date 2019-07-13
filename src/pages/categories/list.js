@@ -11,15 +11,18 @@ class List extends React.Component {
     this.state = {
       items: props.items.list,
       orderAsc: true,
-      groupedBy: false
     };
   }
 
-  componentDidUpdate(prevProps){
-      const {items} = this.props;
-      if(prevProps.items.list !== items.list){
-          this.setState({items: items.list})
-      }
+  componentDidMount(){
+    this.handleSort();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { items } = this.props;
+    if (prevProps.items.list !== items.list) {
+      this.setState({ items: items.list });
+    }
   }
 
   render() {
@@ -30,8 +33,14 @@ class List extends React.Component {
         Add new
       </Link>
     );
-    const sortIcon = <FontAwesomeIcon icon={orderAsc ? faArrowUp : faArrowDown} />
-    const sortAlpha = <button className={"btn"} onClick={this.handleSort}>sort {sortIcon} </button>;
+    const sortIcon = (
+      <FontAwesomeIcon icon={orderAsc ? faArrowUp : faArrowDown} />
+    );
+    const sortAlpha = (
+      <button className={"btn"} onClick={this.handleSort}>
+        sort {sortIcon}{" "}
+      </button>
+    );
     return (
       <div className={"list"}>
         <div className={"title"}>
@@ -40,7 +49,7 @@ class List extends React.Component {
             {add} {sortAlpha}
           </div>
         </div>
-        <ul>
+        <ul className={'regular-list'}>
           {items &&
             items.map(item => {
               const details = (
@@ -63,24 +72,28 @@ class List extends React.Component {
   handleSort() {
     const { items, orderAsc } = this.state;
 
-    let sorting = (a,b) => {
-        if (orderAsc) {
-            if(a.name < b.name) { return -1; }
-            if(a.name > b.name) { return 1; }
-            return 0;
-        } else {
-            if(a.name > b.name) { return -1; }
-            if(a.name < b.name) { return 1; }
-            return 0;
+    let sorting = (a, b) => {
+      if (orderAsc) {
+        if (a.name < b.name) {
+          return -1;
         }
-    }
-     
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      } else {
+        if (a.name > b.name) {
+          return -1;
+        }
+        if (a.name < b.name) {
+          return 1;
+        }
+        return 0;
+      }
+    };
+
     const orderedItems = [...items].sort(sorting);
-    this.setState({items: orderedItems, orderAsc: !orderAsc})   
-  }
-
-  handleGroupByCategory(){
-
+    this.setState({ items: orderedItems, orderAsc: !orderAsc });
   }
 }
 

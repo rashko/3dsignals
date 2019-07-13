@@ -29,7 +29,7 @@ $grayDark: #cccccc;
     &:focus {
       outline: 0;
     }
-    &:hover {
+    &:hover, &.active {
       background: $successDark;
       color: #fff;
     }
@@ -71,6 +71,11 @@ $grayDark: #cccccc;
         }
       }
       ul {
+        list-style: none;
+        margin: 0;
+        padding: 5px;
+      }
+      ul.regular-list {
         list-style: none;
         margin: 0;
         padding: 5px;
