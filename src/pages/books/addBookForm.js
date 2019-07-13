@@ -2,6 +2,7 @@ import * as React from "react";
 import uuid from "uuid";
 import { connect } from "react-redux";
 import { addBook } from "../../redux/actions/books";
+import BookForm from "./bookForm";
 class AddBookForm extends React.Component {
   constructor(props) {
     super(props);
@@ -18,60 +19,31 @@ class AddBookForm extends React.Component {
   }
 
   render() {
-    const { name, author, category, price } = this.state;
+    const { name, author, category, price, errors } = this.state;
     const { categories } = this.props;
     const save = (
       <button onClick={this.handleSubmit} className={"btn"}>
         Create
       </button>
     );
+
+    const categoryFormProps = {
+      handleSubmit: this.handleSubmit,
+      handleChange: this.handleChange,
+      errors,
+      name,
+      author,
+      category,
+      price,
+      categories
+    };
     return (
       <div className={"form"}>
         <div className={"title"}>
           <h3>book create</h3>
           <div className={"actions"}>{save}</div>
         </div>
-        <form autoComplete="off" onSubmit={this.handleSubmit}>
-          <div className={"row"}>
-            <label>name:</label>
-            <input name="name" onChange={this.handleChange} value={name} />
-            <span className={"validationError"}>
-              {this.state.errors["name"]}
-            </span>
-          </div>
-          <div className={"row"}>
-            <label>author:</label>
-            <input name="author" onChange={this.handleChange} value={author} />
-            <span className={"validationError"}>
-              {this.state.errors["author"]}
-            </span>
-          </div>
-          <div className={"row"}>
-            <label>category:</label>
-            <select
-              name="category"
-              value={category}
-              onChange={this.handleChange}
-            >
-              <option>-- select category --</option>
-              {categories.list.map(category => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-            <span className={"validationError"}>
-              {this.state.errors["category"]}
-            </span>
-          </div>
-          <div className={"row"}>
-            <label>price:</label>
-            <input name="price" onChange={this.handleChange} value={price} />
-            <span className={"validationError"}>
-              {this.state.errors["price"]}
-            </span>
-          </div>
-        </form>
+        <BookForm {...categoryFormProps} />
       </div>
     );
   }

@@ -2,6 +2,7 @@ import * as React from "react";
 import uuid from "uuid";
 import { connect } from "react-redux";
 import { addCategory } from "../../redux/actions/categories";
+import CategoryForm from "./categoryForm";
 class AddCategoryForm extends React.Component {
   constructor(props) {
     super(props);
@@ -13,27 +14,25 @@ class AddCategoryForm extends React.Component {
     };
   }
   render() {
-    const { name } = this.state;
+    const { name, errors } = this.state;
     const save = (
       <button onClick={this.handleSubmit} className={"btn"}>
         Create
       </button>
     );
+    const categoryFormProps = {
+      handleSubmit: this.handleSubmit,
+      handleChange: this.handleChange,
+      errors,
+      name
+    };
     return (
       <div className={"form"}>
         <div className={"title"}>
           <h3>category create</h3>
           <div className={"actions"}>{save}</div>
         </div>
-        <form autoComplete="off" onSubmit={this.handleSubmit}>
-          <div className={"row"}>
-            <label>name:</label>
-            <input name="name" onChange={this.handleChange} value={name} />
-            <span className={"validationError"}>
-              {this.state.errors["name"]}
-            </span>
-          </div>
-        </form>
+        <CategoryForm {...categoryFormProps} />
       </div>
     );
   }

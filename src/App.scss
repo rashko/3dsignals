@@ -26,6 +26,9 @@ $grayDark: #cccccc;
     cursor: pointer;
     text-transform: capitalize;
     transition: 0.3s all;
+    &:focus {
+      outline: 0;
+    }
     &:hover {
       background: $successDark;
       color: #fff;
@@ -44,7 +47,6 @@ $grayDark: #cccccc;
       &.active,
       &:hover {
         background-color: $dangerDark;
-        
       }
     }
   }
@@ -56,7 +58,7 @@ $grayDark: #cccccc;
       flex: 1px;
       border: solid 1px $gray;
       border-radius: 4px;
-      
+
       .title {
         display: flex;
         background-color: $gray;
@@ -85,7 +87,6 @@ $grayDark: #cccccc;
           .info {
             flex: 1;
           }
-
         }
       }
     }
@@ -93,7 +94,7 @@ $grayDark: #cccccc;
       flex: 1;
       border: solid 1px $gray;
       border-radius: 4px;
-      
+
       margin: 0 5px;
       .title {
         display: flex;
