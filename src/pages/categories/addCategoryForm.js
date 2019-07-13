@@ -14,10 +14,15 @@ class AddCategoryForm extends React.Component {
   render() {
     const { name } = this.state;
     return (
-      <form autoComplete="off" onSubmit={this.handleSubmit}>
-        <input name="name" onChange={this.handleChange} value={name} />
-        <button>Add</button>
-      </form>
+      <div className={"form"}>
+        <form autoComplete="off" onSubmit={this.handleSubmit}>
+          <div className={"row"}>
+          <label>name:</label>
+            <input name="name" onChange={this.handleChange} value={name} />
+          </div>
+          <button className={'btn'}>Add</button>
+        </form>
+      </div>
     );
   }
 

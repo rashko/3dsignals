@@ -8,13 +8,15 @@ class Books extends React.Component {
   render() {
     const { books, match } = this.props;
     return (
-      <div>
-        <ul>
-          <List items={books} match={match} />
-        </ul>
-        <Link to={`${match.path}create/`}>Add</Link>
+      <div className={'page'}>
+        <List items={books} match={match} />
         <Route path={`${match.path}create`} component={AddBookForm} />
-        <Route path={`${match.path}edit/:id`} render={(props) => <EditBookForm key={props.match.params.id} {...props} />}/>
+        <Route
+          path={`${match.path}edit/:id`}
+          render={props => (
+            <EditBookForm key={props.match.params.id} {...props} />
+          )}
+        />
       </div>
     );
   }

@@ -8,13 +8,15 @@ class Categories extends React.Component {
   render() {
     const { categories, match } = this.props;
     return (
-      <div>
-        <ul>
-          <List items={categories} match={match} />
-        </ul>
-        <Link to={`${match.path}create/`}>Add</Link>
+      <div className={"page"}>
+        <List items={categories} match={match} />
         <Route path={`${match.path}create`} component={AddCategoryForm} />
-        <Route path={`${match.path}edit/:id`} render={(props) => <EditCategoryForm key={props.match.params.id} {...props} />}/>
+        <Route
+          path={`${match.path}edit/:id`}
+          render={props => (
+            <EditCategoryForm key={props.match.params.id} {...props} />
+          )}
+        />
       </div>
     );
   }

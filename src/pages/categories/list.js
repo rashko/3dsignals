@@ -6,18 +6,28 @@ class List extends React.Component {
   render() {
     const { items, match } = this.props;
     return (
-      items &&
-      items.list.map(item => {
-        const remove = (
-          <span onClick={() => this.handleRemove(item)}>remove</span>
-        );
-        const edit = <Link to={`${match.path}edit/${item.id}`}>edit</Link>;
-        return (
-          <li key={item.id}>
-            {item.name} {remove} {edit}
-          </li>
-        );
-      })
+      <div className={"list"}>
+        <Link className={"btn"} to={`${match.path}create/`}>
+          Add new
+        </Link>
+        <ul>
+          {items &&
+            items.list.map(item => {
+              const remove = (
+                <button className={'btn'} onClick={() => this.handleRemove(item)}>remove</button>
+              );
+              const edit = (
+                <Link className={'btn'} to={`${match.path}edit/${item.id}`}>edit</Link>
+              );
+              const info = (<div className={'info'}>{item.name}</div>)
+              return (
+                <li key={item.id}>
+                   {info} {remove} {edit}
+                </li>
+              );
+            })}
+        </ul>
+      </div>
     );
   }
 

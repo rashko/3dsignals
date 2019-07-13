@@ -19,30 +19,38 @@ class AddBookForm extends React.Component {
     const { name, author, category, price } = this.state;
     const { categories } = this.props;
     return (
-      <form autoComplete="off" onSubmit={this.handleSubmit}>
-        <div className={"row"}>
-          <label>name:</label>
-          <input name="name" onChange={this.handleChange} value={name} />
-        </div>
-        <div className={"row"}>
-          <label>author:</label>
-          <input name="author" onChange={this.handleChange} value={author} />
-        </div>
-        <div className={"row"}>
-          <label>category:</label>
-          <select name="category" value={category} onChange={this.handleChange}>
-            <option>-- select category --</option>
-            {categories.list.map(category => (
-              <option key={category.id} value={category.id}>{category.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className={"row"}>
-          <label>price:</label>
-          <input name="price" onChange={this.handleChange} value={price} />
-        </div>
-        <button>Add</button>
-      </form>
+      <div className={"form"}>
+        <form autoComplete="off" onSubmit={this.handleSubmit}>
+          <div className={"row"}>
+            <label>name:</label>
+            <input name="name" onChange={this.handleChange} value={name} />
+          </div>
+          <div className={"row"}>
+            <label>author:</label>
+            <input name="author" onChange={this.handleChange} value={author} />
+          </div>
+          <div className={"row"}>
+            <label>category:</label>
+            <select
+              name="category"
+              value={category}
+              onChange={this.handleChange}
+            >
+              <option>-- select category --</option>
+              {categories.list.map(category => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={"row"}>
+            <label>price:</label>
+            <input name="price" onChange={this.handleChange} value={price} />
+          </div>
+          <button className={'btn'}>Add</button>
+        </form>
+      </div>
     );
   }
 
