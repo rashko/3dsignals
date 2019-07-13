@@ -5,28 +5,29 @@ import { Link } from "react-router-dom";
 class List extends React.Component {
   render() {
     const { items, match } = this.props;
+    const details = (
+      <Link className={"btn"} to={`${match.path}create/`}>
+        Add new
+      </Link>
+    );
     return (
       <div className={"list"}>
-        <Link className={"btn"} to={`${match.path}create/`}>
-          Add new
-        </Link>
+        <div className={"title"}>
+          <h3>books list</h3>
+          <div className={"actions"}>{details}</div>
+        </div>
         <ul>
           {items &&
             items.list.map(item => {
-              const remove = (
-                <button className={'btn'} onClick={() => this.handleRemove(item)}>remove</button>
+              const details = (
+                <Link className={"btn"} to={`${match.path}details/${item.id}`}>
+                  details
+                </Link>
               );
-              const edit = (
-                <Link className={'btn'} to={`${match.path}edit/${item.id}`}>edit</Link>
-              );
-              const info = (
-                <div className={'info'}>
-                  {item.name}
-                </div>
-              )
+              const info = <div className={"info"}>{item.name}</div>;
               return (
                 <li key={item.id}>
-                  {info} {remove} {edit}
+                  {info} {details}
                 </li>
               );
             })}

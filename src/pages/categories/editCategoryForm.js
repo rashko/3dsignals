@@ -12,23 +12,23 @@ class EditCategoryForm extends React.Component {
     };
   }
   componentDidMount() {
-    const { id } = this.props.match.params;
-    const categories = this.props.categories;
-    const category = categories.list.find(category => category.id === id);
-    if (category) {
-      this.setState(category);
-    }
+    this.setState(this.props.category);
   }
   render() {
     const { name } = this.state;
+    const originalName = this.props.category.name;
+    const save = <button onClick={this.handleSubmit}  className={"btn"}>Update</button>;
     return (
-        <div className={"form"}>
+      <div className={"form"}>
+        <div className={"title"}>
+          <h3>category update: {originalName}</h3>
+          <div className={"actions"}>{save}</div>
+        </div>
         <form autoComplete="off" onSubmit={this.handleSubmit}>
           <div className={"row"}>
-          <label>name:</label>
+            <label>name:</label>
             <input name="name" onChange={this.handleChange} value={name} />
           </div>
-          <button className={'btn'}>Update</button>
         </form>
       </div>
     );
@@ -53,8 +53,11 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = state => {
-  return { categories: state.categories };
+const mapStateToProps = (state, props) => {
+  const { id } = props.match.params;
+  return {
+    category: state.categories.list.find(category => category.id === id)
+  };
 };
 
 export default connect(

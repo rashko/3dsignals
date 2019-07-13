@@ -1,9 +1,11 @@
 $danger: #ff4444;
-$dangerDark: #CC0000;
-$success: #00C851;
-$successDark: #007E33;
+$dangerDark: #cc0000;
+$success: #00c851;
+$successDark: #007e33;
 $info: #33b5e5;
-$infoDark: #0099CC;
+$infoDark: #0099cc;
+$gray: #dddddd;
+$grayDark: #cccccc;
 
 .app {
   display: flex;
@@ -16,21 +18,33 @@ $infoDark: #0099CC;
     padding: 5px 10px;
     border-radius: 4px;
     display: inline-block;
-    margin: 0 5px;
+    margin: 0 5px 0 0;
     text-decoration: none;
     color: #000000;
     font-size: 0.9em;
-    border:none;
+    border: none;
     cursor: pointer;
+    text-transform: capitalize;
     transition: 0.3s all;
     &:hover {
       background: $successDark;
       color: #fff;
     }
-    &.gray {
+    &.info {
       background-color: $info;
-      &.active, &:hover {
+      &.active,
+      &:hover {
         background-color: $infoDark;
+        color: #fff;
+      }
+    }
+    &.danger {
+      background-color: $danger;
+      color: #fff;
+      &.active,
+      &:hover {
+        background-color: $dangerDark;
+        
       }
     }
   }
@@ -40,31 +54,58 @@ $infoDark: #0099CC;
     justify-content: flex-start;
     .list {
       flex: 1px;
-      border: solid 1px #cccccc;
+      border: solid 1px $gray;
       border-radius: 4px;
-      padding: 5px;
+      
+      .title {
+        display: flex;
+        background-color: $gray;
+        padding: 5px;
+        h3 {
+          text-transform: capitalize;
+          margin: 0;
+          padding: 0;
+          flex: 1;
+        }
+      }
       ul {
         list-style: none;
         margin: 0;
-        padding: 0;
+        padding: 5px;
         li {
-          background: #ccc;
+          background: $gray;
           margin: 3px 0;
           padding: 5px;
           border-radius: 4px;
           display: flex;
+          transition: 0.3s all;
+          &:hover {
+            background: $grayDark;
+          }
           .info {
             flex: 1;
           }
+
         }
       }
     }
     .form {
       flex: 1;
-      border: solid 1px #cccccc;
+      border: solid 1px $gray;
       border-radius: 4px;
-      padding: 5px;
+      
       margin: 0 5px;
+      .title {
+        display: flex;
+        background-color: $gray;
+        padding: 5px;
+        h3 {
+          text-transform: capitalize;
+          margin: 0;
+          padding: 0;
+          flex: 1;
+        }
+      }
       .row {
         padding: 5px;
         label {

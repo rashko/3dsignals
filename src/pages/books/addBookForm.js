@@ -18,8 +18,17 @@ class AddBookForm extends React.Component {
   render() {
     const { name, author, category, price } = this.state;
     const { categories } = this.props;
+    const save = (
+      <button onClick={this.handleSubmit} className={"btn"}>
+        Create
+      </button>
+    );
     return (
       <div className={"form"}>
+        <div className={"title"}>
+          <h3>book create</h3>
+          <div className={"actions"}>{save}</div>
+        </div>
         <form autoComplete="off" onSubmit={this.handleSubmit}>
           <div className={"row"}>
             <label>name:</label>
@@ -48,7 +57,6 @@ class AddBookForm extends React.Component {
             <label>price:</label>
             <input name="price" onChange={this.handleChange} value={price} />
           </div>
-          <button className={'btn'}>Add</button>
         </form>
       </div>
     );

@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import List from "./list";
 import AddCategoryForm from "./addCategoryForm";
 import EditCategoryForm from "./editCategoryForm";
-import { Route, Link } from "react-router-dom";
+import CategoryDetails from "./categoryDetails";
+import { Route } from "react-router-dom";
 class Categories extends React.Component {
   render() {
     const { categories, match } = this.props;
@@ -17,6 +18,7 @@ class Categories extends React.Component {
             <EditCategoryForm key={props.match.params.id} {...props} />
           )}
         />
+        <Route path={`${match.path}details/:id`} component={CategoryDetails} />
       </div>
     );
   }

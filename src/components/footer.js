@@ -5,8 +5,8 @@ export default class Footer extends React.Component {
   render() {
     return (
       <div className={"footer"}>
-        <NavLink className={'btn gray'} to={"/books/"}>books</NavLink>
-        <NavLink className={'btn gray'} to={"/categories/"}>categories</NavLink>
+        <NavLink className={'btn info'} to={"/books/"}>books</NavLink>
+        <NavLink className={'btn info'} to={"/categories/"}>categories</NavLink>
       </div>
     );
   }

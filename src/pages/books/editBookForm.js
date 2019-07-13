@@ -15,18 +15,23 @@ class EditBookForm extends React.Component {
     };
   }
   componentDidMount() {
-    const { id } = this.props.match.params;
-    const books = this.props.books;
-    const book = books.list.find(book => book.id === id);
-    if (book) {
-      this.setState(book);
-    }
+    this.setState(this.props.book);
   }
   render() {
     const { name, author, category, price } = this.state;
     const { categories } = this.props;
+    const originalName = this.props.book.name;
+    const save = (
+      <button onClick={this.handleSubmit} className={"btn"}>
+        Update
+      </button>
+    );
     return (
       <div className={"form"}>
+        <div className={"title"}>
+          <h3>book update: {originalName}</h3>
+          <div className={"actions"}>{save}</div>
+        </div>
         <form autoComplete="off" onSubmit={this.handleSubmit}>
           <div className={"row"}>
             <label>name:</label>
@@ -55,7 +60,6 @@ class EditBookForm extends React.Component {
             <label>price:</label>
             <input name="price" onChange={this.handleChange} value={price} />
           </div>
-          <button className={'btn'}>Update</button>
         </form>
       </div>
     );
@@ -81,8 +85,12 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = state => {
-  return { books: state.books, categories: state.categories };
+const mapStateToProps = (state, props) => {
+  const { id } = props.match.params;
+  return {
+    categories: state.categories,
+    book: state.books.list.find(book => book.id === id)
+  };
 };
 
 export default connect(
