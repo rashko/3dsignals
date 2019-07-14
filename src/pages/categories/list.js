@@ -10,11 +10,11 @@ class List extends React.Component {
     this.handleSort = this.handleSort.bind(this);
     this.state = {
       items: props.items.list,
-      orderAsc: true,
+      orderAsc: true
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.handleSort();
   }
 
@@ -49,9 +49,10 @@ class List extends React.Component {
             {add} {sortAlpha}
           </div>
         </div>
-        <ul className={'regular-list'}>
-          {items &&
-            items.map(item => {
+        {items.length === 0 && <div className={'no-items'}>No categories yet.<br /> maybe you want to add a few?</div>}
+        {items && items.length > 0 && (
+          <ul className={"regular-list"}>
+            {items.map(item => {
               const details = (
                 <Link className={"btn"} to={`${match.path}details/${item.id}`}>
                   details
@@ -64,7 +65,8 @@ class List extends React.Component {
                 </li>
               );
             })}
-        </ul>
+          </ul>
+        )}
       </div>
     );
   }

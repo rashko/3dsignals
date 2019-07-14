@@ -8,7 +8,7 @@ class CategoryDetails extends React.Component {
     this.handleRemove = this.handleRemove.bind(this);
   }
   render() {
-    const { category, match } = this.props;
+    const { category } = this.props;
     const remove = (
       <button className={"btn danger"} onClick={this.handleRemove}>
         remove

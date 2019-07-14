@@ -49,13 +49,14 @@ class List extends React.Component {
     );
 
     const groupByCategory = () => {
-      const  className = classNames('btn', {'active': groupedByCategory});
-      return <button className={className} onClick={this.toggleGroupByCategoryView}>
-        group by category
-      </button>
-    }
-      
-    
+      const className = classNames("btn", { active: groupedByCategory });
+      return (
+        <button className={className} onClick={this.toggleGroupByCategoryView}>
+          group by category
+        </button>
+      );
+    };
+
     return (
       <div className={"list"}>
         <div className={"title"}>
@@ -64,7 +65,14 @@ class List extends React.Component {
             {add} {sortAlpha} {groupByCategory()}
           </div>
         </div>
-        <ul class={"regular-list"}>
+        {(items.length === 0 ||
+          Object.keys(groupedByCategory).length === 0) && (
+          <div className={"no-items"}>
+            No books yet.
+            <br /> maybe you want to add a few?
+          </div>
+        )}
+        <ul className={"regular-list"}>
           {!groupedByCategory &&
             items &&
             items.map(item => {
@@ -87,7 +95,7 @@ class List extends React.Component {
               return (
                 <li key={index}>
                   {category} ({itemsGrouped[category].length})
-                  <ul class={"regular-list"}>
+                  <ul className={"regular-list"}>
                     {itemsGrouped[category].map(item => {
                       const details = (
                         <Link
